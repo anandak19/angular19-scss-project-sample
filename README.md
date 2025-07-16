@@ -1,59 +1,123 @@
-# Angular19ScssProjectSample
+# Angular Project Setup - Best Practices
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+This guide will help you set up an Angular project (Angular CLI v19+) and follow the best folder structure for scalability and maintainability.
 
-## Development server
+---
 
-To start a local development server, run:
 
-```bash
-ng serve
-```
+## ✅ Step 1: Install Angular CLI Globally
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Install the latest version of Angular CLI:
 
 ```bash
-ng generate component component-name
+npm install -g @angular/cli
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Or install a specific version (e.g., v19):
 
 ```bash
-ng generate --help
+npm install -g @angular/cli@19
 ```
 
-## Building
+
+## ✅ Step 2: Create a New Angular Project
+
+```bash
+ng new my-app
+```
+
+⚙️ CLI Configuration Prompts:
+
+- Zoneless App (Developer Preview)?
+  - Choose Yes if you want to use Angular Signals and manual change detection (no zone.js).
+  - Choose No to use zone.js for automatic change detection (recommended for most projects).
+
+- Add Routing?
+  - Choose Yes if your app will have multiple pages/routes.
+
+- Stylesheet Format?
+  - Recommended: SCSS (or CSS/LESS/etc. based on preference)
+
+- Enable Server-Side Rendering (SSR/SSG)?
+  - Choose No if you’re not using Angular Universal.
+  - Choose Yes only if you need server-side rendering (advanced).
+
+
+## ✅ Step 3: Navigate to Your Project
 
 To build the project run:
 
 ```bash
-ng build
+cd my-app
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## ✅ Step 4: Run the Angular App
 
 ```bash
-ng test
+ng serve
+```
+To open http://localhost:4200 in your default browser.
+```bash
+ng s -o
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+
+## 📁 Angular Best Folder Structure
+
+Structure your application for clarity, reusability, and scalability:
 
 ```bash
-ng e2e
+src/
+└── app/
+    ├── core/
+    │   ├── services/
+    │   ├── interceptors/
+    │   ├── guards/
+    │   └── ...
+    │
+    ├── shared/
+    │   ├── components/
+    │   ├── directives/
+    │   ├── pipes/
+    │   └── ...
+    │
+    ├── features/
+    │   ├── auth/
+    │   │   ├── pages/
+    │   │   ├── store/
+    │   │   ├── layoutComponent/
+    │   │   ├── components/
+    │   │   ├── services/
+    │   │   ├── guards/
+    │   │   ├── directives/
+    │   │   └── auth.routes.ts
+    │   │
+    │   ├── user/
+    │   │   ├── pages/
+    │   │   ├── store/
+    │   │   ├── layoutComponent/
+    │   │   ├── components/
+    │   │   ├── services/
+    │   │   ├── guards/
+    │   │   ├── directives/
+    │   │   └── user.routes.ts
+    │   │
+    │   ├── adminAuth/
+    │   │   ├── pages/
+    │   │   ├── store/
+    │   │   ├── layoutComponent/
+    │   │   ├── components/
+    │   │   ├── services/
+    │   │   ├── guards/
+    │   │   ├── directives/
+    │   │   └── adminAuth.routes.ts
+
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Tips
+- Place globally used singleton services, interceptors, and guards inside core/.
+- Use shared/ for reusable components, pipes, and directives used across multiple features.
+- Organize each major feature (e.g., auth, user, admin) in its own folder inside features/, keeping its routes, services, and components encapsulated.
